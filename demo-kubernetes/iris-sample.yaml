@@ -1,0 +1,50 @@
+apiVersion: intersystems.com/v1alpha1
+kind: IrisCluster
+metadata:
+  name: sample
+spec:
+
+# holds Web Gateway config info: CSP.conf, CSP.ini
+  configSource:
+    name: iris-cpf
+
+# to enable external IP addresses
+  serviceTemplate:
+    spec:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+
+# to activate license key
+  licenseKeySecret:
+    name: iris-key-secret
+
+# to enable TLS
+  tls:
+    common:
+      secret:
+        secretName: tls-secret
+
+# define the pods
+  topology:
+
+    data: 
+      shards: 1
+      mirrored: false
+      image: containers.intersystems.com/intersystems/iris:2022.2.0.368.0
+#      image: $IRISIMAGE
+      podTemplate:
+        spec:
+          imagePullSecrets:
+          - name: docker-secret
+
+    webgateway: 
+      replicas: 1
+      type: "apache"
+      image: containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
+#      image: $WEBIMAGE
+      podTemplate:
+        spec:
+          imagePullSecrets:
+          - name: docker-secret
+      updateStrategy:
+        type: RollingUpdate

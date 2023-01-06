@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  # iris container
+  iris:
+    image: ${IRISTAG}
+    init: true
+    container_name: iris
+    hostname: iris
+    ports:
+    - "8881:1972"
+    environment: 
+    - ISC_DATA_DIRECTORY=/iris-shared/durable
+    - ISC_SENTINEL_DIR=/iris-shared
+    volumes:
+    - type: bind
+      source: ./iris
+      target: /iris-shared
+    command: --key /iris-shared/iris.key
+    #privileged: true
+
+  # web gateway container
+  webgateway:
+    image: ${WEBGTAG}
+    init: true
+    container_name: webgateway
+    hostname: webgateway
+    ports:
+    - "8882:80"
+    - "8883:443"
+    environment:
+    - ISC_DATA_DIRECTORY=/webgateway-shared/durable
+    - ISC_SENTINEL_DIR=/webgateway-shared
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway-shared
+    #privileged: true
