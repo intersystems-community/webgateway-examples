@@ -3,11 +3,11 @@
 # https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=AIKO
 
 # NB: don't actually script passwords for security reasons
-# kubectl create secret docker-registry docker-secret --docker-server=containers.intersystems.com --docker-username=SETME --docker-password=SETME --docker-email=SETME
+# kubectl create secret docker-registry dockerhub-secret --docker-server=containers.intersystems.com --docker-username=SETME --docker-password=SETME --docker-email=SETME
 
-# For a non-default password, add data (and possibly compute) CPF files to this line.
+# For non-default passwords, modify CSP_merge.ini and add data (and possibly compute) CPF files to this line.
 # See Documentation for more information regarding config maps for configuration files.
-kubectl create cm iris-cpf --from-file CSP.conf --from-file CSP.ini
+kubectl create cm iris-cpf --from-file CSP-merge.ini
 
 # license key 
 kubectl create secret generic iris-key-secret --from-file=iris.key

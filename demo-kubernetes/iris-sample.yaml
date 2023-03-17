@@ -3,48 +3,40 @@ kind: IrisCluster
 metadata:
   name: sample
 spec:
-
-# holds Web Gateway config info: CSP.conf, CSP.ini
-  configSource:
-    name: iris-cpf
-
-# to enable external IP addresses
-  serviceTemplate:
-    spec:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
-
-# to activate license key
   licenseKeySecret:
+    #; to activate ISC license key
     name: iris-key-secret
-
-# to enable TLS
+  configSource:
+    #; contains CSP-merge.ini, which is merged into IKO's
+    #; auto-generated configuration.
+    name: iris-cpf
+  imagePullSecrets:
+    - name: dockerhub-secret
   tls:
+    #; for more complex deployments, you may opt into separate TLS
+    #; configurations for different connections (e.g., 'webgateway')
+    #; but here we simply default to 'common' for everything.
     common:
       secret:
         secretName: tls-secret
-
-# define the pods
   topology:
-
-    data: 
-      shards: 1
-      mirrored: false
-      image: containers.intersystems.com/intersystems/iris:2022.2.0.368.0
-#      image: $IRISIMAGE
-      podTemplate:
-        spec:
-          imagePullSecrets:
-          - name: docker-secret
-
-    webgateway: 
+    data:
+      image: containers.intersystems.com/intersystems/iris:2023.1.0.207.0
+    webgateway:
       replicas: 1
-      type: "apache"
-      image: containers.intersystems.com/intersystems/webgateway:2022.2.0.372.0
-#      image: $WEBIMAGE
-      podTemplate:
-        spec:
-          imagePullSecrets:
-          - name: docker-secret
-      updateStrategy:
-        type: RollingUpdate
+      image: containers.intersystems.com/intersystems/webgateway:2023.1.0.207.0
+      applicationPaths:
+        #; All of the IRIS instance's system default applications.
+        #; For Management Portal only, just use '/csp/sys'.
+        #; To support other applications, please add them to this list.
+        - /csp/sys
+        - /csp/broker
+        - /api
+        - /isc
+        - /oauth2
+        - /ui
+  serviceTemplate:
+    #; to enable external IP addresses
+    spec:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
