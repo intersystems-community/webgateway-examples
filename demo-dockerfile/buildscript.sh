@@ -2,8 +2,8 @@
 
 # Build variables
 IMAGE=containers.intersystems.com/intersystems/iris:2022.2.0.368.0
-APACHE_URL="https://dlcdn.apache.org/httpd/httpd-2.4.54.tar.gz"
-APACHE_FOLDER="httpd-2.4.54"
+APACHE_URL="https://dlcdn.apache.org/httpd/httpd-2.4.56.tar.gz"
+APACHE_FOLDER="httpd-2.4.56"
 WEB_GATEWAY_FOLDER="WebGateway-2022.2.0.368.0-lnxubuntu2204x64"
 PLATFORM="lnxubuntu2204x64"
 TAG=local:iris-demo-image
