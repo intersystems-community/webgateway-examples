@@ -18,8 +18,8 @@ docker build . -t $TAG --build-arg IMAGE=$IMAGE --build-arg APACHE_URL=$APACHE_U
 # Runtime variables
 SS_PORT="-p 5551:1972"
 WEB_PORT="-p 5552:8080"
-# Modify BASEDIR to match your system!
-BASEDIR="<path to the current directory with the Dockerfile>"
+# $PWD should refer to this (current) directory with the Dockerfile
+BASEDIR=$PWD
 VOLUME="iris-persistent"
 NAME="iris-demo"
 BINDMOUNT="-v $BASEDIR/$VOLUME:/$VOLUME"
