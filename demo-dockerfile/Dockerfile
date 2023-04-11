@@ -35,7 +35,7 @@ ARG APACHE_URL="https://dlcdn.apache.org/httpd/httpd-2.4.54.tar.gz" \
     PLATFORM="lnxubuntu2204x64"
 
 
-COPY ${WEB_GATEWAY_FOLDER}.tar.gz /home/irisowner/
+COPY --chown=irisowner ${WEB_GATEWAY_FOLDER}.tar.gz /home/irisowner/
 
 # Apache installation. Since apt install would require root or sudo access and
 # we want a non-root user to control this, we install from source.
@@ -72,8 +72,8 @@ RUN cd ${HOME} \
     && rm -rf ${WEB_GATEWAY_FOLDER}.tar \
     && rm -rf ${WEB_GATEWAY_FOLDER}.tar.gz
 
-COPY CSP.conf /home/irisowner/apache2/conf
-COPY CSP.ini /home/irisowner/webgateway/bin
+COPY --chown=irisowner CSP.conf /home/irisowner/apache2/conf
+COPY --chown=irisowner CSP.ini /home/irisowner/webgateway/bin
 
 RUN echo "Include /home/irisowner/apache2/conf/CSP.conf" >> ${HOME}/apache2/conf/httpd.conf
 
