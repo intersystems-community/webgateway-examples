@@ -54,7 +54,7 @@ NOTES FOR PODMAN:
 If using podman in lieu of docker, the demo works similarly, but requires the following special considerations for setup:
 
 - Podman must either use netavark as its backend or have the dnsname plugin installed for the cni backend.
-- Run "podman unshare chown 51773:51773" on the IRIS sentinel directory to support durable sys. Alternatively, omit durable sys.
+- Run "podman unshare chown 51773:51773" on the iris/ subdirectory to support durable sys. Alternatively, omit durable sys.
 - If SELinux is enforcing security on RHEL, add (uncomment) the "privileged: true" flag for each service in the docker-compose file.
 
 You will also need podman-compose/podman commands instead of docker-compose/docker in the setup and cleanup scripts, unless you use docker-to-podman aliasing.

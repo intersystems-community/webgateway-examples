@@ -10,7 +10,6 @@ services:
     - "8881:1972"
     environment: 
     - ISC_DATA_DIRECTORY=/iris-shared/durable
-    - ISC_SENTINEL_DIR=/iris-shared
     volumes:
     - type: bind
       source: ./iris
@@ -29,7 +28,6 @@ services:
     - "8883:443"
     environment:
     - ISC_DATA_DIRECTORY=/webgateway-shared/durable
-    - ISC_SENTINEL_DIR=/webgateway-shared
     - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
     - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
     volumes:

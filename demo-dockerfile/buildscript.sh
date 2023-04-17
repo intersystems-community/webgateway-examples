@@ -2,8 +2,8 @@
 
 # Build variables
 IMAGE=containers.intersystems.com/intersystems/iris:2022.2.0.368.0
-APACHE_URL="https://dlcdn.apache.org/httpd/httpd-2.4.56.tar.gz"
-APACHE_FOLDER="httpd-2.4.56"
+APACHE_URL="https://dlcdn.apache.org/httpd/httpd-2.4.57.tar.gz"
+APACHE_FOLDER="httpd-2.4.57"
 WEB_GATEWAY_FOLDER="WebGateway-2022.2.0.368.0-lnxubuntu2204x64"
 PLATFORM="lnxubuntu2204x64"
 TAG=local:iris-demo-image
@@ -23,7 +23,7 @@ BASEDIR=$PWD
 VOLUME="iris-persistent"
 NAME="iris-demo"
 BINDMOUNT="-v $BASEDIR/$VOLUME:/$VOLUME"
-DURABLESYS="-e ISC_DATA_DIRECTORY=/$VOLUME/durable -e ISC_SENTINEL_DIR=/$VOLUME"
+DURABLESYS="-e ISC_DATA_DIRECTORY=/$VOLUME/durable"
 FLAGS="--cap-add IPC_LOCK --init --detach"
 KEY="--key /$VOLUME/iris.key"
 
