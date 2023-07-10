@@ -16,3 +16,14 @@ User must supply their own license key. Name it "iris.key" and place it in the s
 User must edit the build script's BASEDIR to hold the appropriate path on their system.
 
 To change the IRIS version used by this demo, edit the IMAGE argument in the build script. The IRIS version should never exceed the Web Gateway version, so if specifying a recent IRIS, you may need to fetch a more recent Web Gateway tarball as well.
+
+
+IMPORTANT SECURITY NOTE:
+
+This demo is for demonstration purposes only. It offers a barebones, in-container replacement for the private web server (which itself was insecure) and does not have production-level security as-is. For a more secure setup, users should make, at minimum, the following changes:
+
+* Do not use "*.*.*.*" for System_Manager; this grants all IP addresses access to Web Gateway Management.
+* Set a password other than "SYS" for all IRIS users, including CSPSystem.
+* Add a TLS configuration, either via script as the demo-compose example does, or within the custom container image.
+
+See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security, as well as IRIS container passwords.

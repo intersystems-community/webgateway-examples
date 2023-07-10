@@ -39,7 +39,7 @@ If SSL is not desired, remove the SSL-related sections from these files:
 * webgateway/CSP.conf (everything under the SSL section)
 
 
-The first time you access Management Portal with a user (e.g., SuperUser), it will prompt you to manually set the user's password in IRIS to login to Management Portal with SuperUser,etc. Web Gateway uses CSPSystem/SYS by default to connect to IRIS. This works out of the box, but if you change CSPSystem's password to anything else on IRIS, don't forget to adjust the server configuration in Web Gateway.
+This demo does not set non-default passwords for the containers. The first time you access Management Portal with a user (e.g., SuperUser), it will prompt you to manually set the user's password in IRIS to login to Management Portal with SuperUser,etc. The provided CSP.ini uses CSPSystem/SYS to connect to IRIS. This works with the demo out of the box, but if you change CSPSystem's password to anything else on IRIS, don't forget to adjust the server configuration in Web Gateway.
 
 See the docker-compose.yml for the external port mappings. Change those if needed to avoid conflicts with other containers or instances on your machine.
 
@@ -58,4 +58,15 @@ If using podman in lieu of docker, the demo works similarly, but requires the fo
 - If SELinux is enforcing security on RHEL, add (uncomment) the "privileged: true" flag for each service in the docker-compose file.
 
 You will also need podman-compose/podman commands instead of docker-compose/docker in the setup and cleanup scripts, unless you use docker-to-podman aliasing.
+
+--------------------------------------------------------------------
+
+SECURITY NOTE:
+
+This demo is simplified and for demonstration purposes only. It does not have production-level security as-is. For a more secure setup, users should make, at minimum, the following changes:
+
+- Do not use "*.*.*.*" for System_Manager; this grants all IP addresses access to Web Gateway Management.
+- Set a password other than "SYS" for all IRIS users, including CSPSystem.
+
+See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security, as well as IRIS container passwords.
 
