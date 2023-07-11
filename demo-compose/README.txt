@@ -68,5 +68,12 @@ This demo is simplified and for demonstration purposes only. It does not have pr
 - Do not use "*.*.*.*" for System_Manager; this grants all IP addresses access to Web Gateway Management.
 - Set a password other than "SYS" for all IRIS users, including CSPSystem.
 
-See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security, as well as IRIS container passwords.
+See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security and IRIS container passwords, or follow these links:
+
+IRIS containers and password authentication: 
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=ADOCK#ADOCK_iris_images_password_auth
+ 
+Web Gateway security:
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=ADOCK#ADOCK_iris_webgateway_security
+ 
 

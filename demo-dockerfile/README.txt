@@ -26,4 +26,10 @@ This demo is for demonstration purposes only. It offers a barebones, in-containe
 * Set a password other than "SYS" for all IRIS users, including CSPSystem.
 * Add a TLS configuration, either via script as the demo-compose example does, or within the custom container image.
 
-See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security, as well as IRIS container passwords.
+See Documentation (docs.intersystems.com) for further security guidance. In particular, look up Web Gateway security and IRIS container passwords, or follow these links:
+
+IRIS containers and password authentication: 
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=ADOCK#ADOCK_iris_images_password_auth
+ 
+Web Gateway security:
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=ADOCK#ADOCK_iris_webgateway_security
