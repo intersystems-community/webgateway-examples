@@ -33,3 +33,7 @@ Not provided:
 * commands to create dockerhub-secret (setup.sh includes a commented-out example)
 * SSL certificates (tls.crt, tls.key, ca.pem; see Documentation)
 * InterSystems IRIS license key (iris.key)
+
+Note, for multi-instance deployments (i.e., clusters with multiple Intersystems IRIS data and/or compute nodes), dedicated Web Gateway sidecars are recommended. These will provide reliable access to each instance's Management Portal for admins and system applications for IAM and SAM:
+https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=AIKO#AIKO_clusterdef_webgateway_sg
+The standalone Web Gateway pod is meant for custom production applications and will automatically distribute web requests across the sharded IRIS cluster.
