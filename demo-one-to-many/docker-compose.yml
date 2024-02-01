@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  # two iris instances
+  iris1:
+    image: ${IRISTAG}
+    init: true
+    container_name: iris1
+    hostname: iris1
+    volumes:
+    - type: bind
+      source: ./iris
+      target: /iris-shared
+    command: --key /iris-shared/iris.key -a /iris-shared/configure.sh
+    #command: --key /iris-shared/iris.key --instance IRIS1 --create "iris rename iris iris1"
+    #privileged: true
+
+  iris2:
+    image: ${IRISTAG}
+    init: true
+    container_name: iris2
+    hostname: iris2
+    volumes:
+    - type: bind
+      source: ./iris
+      target: /iris-shared
+    command: --key /iris-shared/iris.key -a /iris-shared/configure.sh
+    #command: --key /iris-shared/iris.key --instance IRIS2 --create "iris rename iris iris2"
+    #privileged: true
+
+  # web gateway container
+  webgateway:
+    image: ${WEBGTAG}
+    init: true
+    container_name: webgateway
+    hostname: webgateway
+    ports:
+    - "8882:80"
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway-shared
+      #privileged: true

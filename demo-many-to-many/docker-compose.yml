@@ -1,0 +1,76 @@
+version: '3.7'
+services:
+  # iris instances
+  iris1:
+    image: ${IRISTAG}
+    init: true
+    container_name: iris1
+    hostname: iris1
+    volumes:
+    - type: bind
+      source: ./iris
+      target: /iris-shared
+    command: --key /iris-shared/iris.key
+    #privileged: true
+
+  iris2:
+    image: ${IRISTAG}
+    init: true
+    container_name: iris2
+    hostname: iris2
+    volumes:
+    - type: bind
+      source: ./iris
+      target: /iris-shared
+    command: --key /iris-shared/iris.key
+    #privileged: true
+
+  # dedicated web gateway containers 
+  webgateway-iris1:
+    image: ${WEBGTAG}
+    init: true
+    container_name: webgateway-iris1
+    hostname: webgateway-iris1
+    ports:
+    - "8881:80"
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP_sidecars.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP-iris1.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway-shared
+      #privileged: true
+
+  webgateway-iris2:
+    image: ${WEBGTAG}
+    init: true
+    container_name: webgateway-iris2
+    hostname: webgateway-iris2
+    ports:
+    - "8882:80"
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP_sidecars.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP-iris2.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway-shared
+      #privileged: true
+
+  #load-balancing web gateway container
+  webgateway-app:
+    image: ${WEBGTAG}
+    init: true
+    container_name: webgateway-app
+    hostname: webgateway-app
+    ports:
+    - "8081:80"
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP_balancer.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP-app.ini
+    volumes:
+    - type: bind
+      source: ./webgateway
+      target: /webgateway-shared
+      #privileged: true
